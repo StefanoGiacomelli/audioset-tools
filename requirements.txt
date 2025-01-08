@@ -1,0 +1,15 @@
+tqdm
+soundfile
+yt-dlp
+certifi
+brotli
+websockets
+requests
+curl_cffi
+mutagen
+xattr
+pycryptodome
+pycryptodomex
+SecretStorage
+resampy
+numpy
