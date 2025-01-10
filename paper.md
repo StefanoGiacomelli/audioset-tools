@@ -1,35 +1,27 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'AudioSet-Tools: a Python package for custom AudioSet distributions processing and downloading'
 tags:
   - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - Digital Signal Processing (DSP)
+  - dataset
+  - AudioSet
+  - YouTube
 authors:
-  - name: Adrian M. Price-Whelan
+  - name: Stefano Giacomelli
     orcid: 0000-0000-0000-0000
-    equal-contrib: true
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+    corresponding: true
+    affiliation: 1
+  - name: Claudia Rinaldi
+    orcid: 
     affiliation: 2
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
+  - name: Fabio Graziosi
+    affiliation: 1
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, United States
+ - name: Department of Information Engineering, Computer Science and Mathematics (DISIM), University of L’Aquila, Italy
    index: 1
-   ror: 00hx57361
- - name: Institution Name, Country
+ - name: CNIT, University of L'Aquila, Italy
    index: 2
- - name: Independent Researcher, Country
-   index: 3
-date: 13 August 2017
+date: 10 January 2025
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
