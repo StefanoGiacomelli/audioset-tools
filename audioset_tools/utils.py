@@ -1,6 +1,9 @@
 import csv
+import json
+import ast
 from pathlib import Path
 from typing import List
+from collections import defaultdict
 
 
 def find_samps_by_samps(targets_file: str, data_file: str, verbose: bool = False):
@@ -45,6 +48,130 @@ def find_samps_by_samps(targets_file: str, data_file: str, verbose: bool = False
                     print(f"Sample IDX: {index}, yt_id: {row['yt_id']}")
 
     return matching_rows, len(matching_rows)
+
+
+def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_json: bool = False):
+    """
+    AudioSet (Processed) CSV statistics retriever: computes occurrences per label and total samples.
+    Additionally, if the 'downloaded' attribute is present in the CSV header, the function computes:
+      - The total number of samples marked as downloaded (True) and not downloaded (False).
+      - Occurrences per label for downloaded and not downloaded samples, output in dictionary format:
+        {'class': occurrence (int)}.
+    
+    Optionally, statistics are saved as a JSON file.
+    
+    :param data_file: Path to the CSV file containing video information.
+    :param labels_file: Path to the CSV file containing labels decoding information.
+    :param verbose: If True, enables debug printing. Default is False.
+    :param save_json: If True, saves the computed statistics to a JSON file.
+                      The JSON filename is generated as "<data_file>_stats.json".
+    :return: A dictionary with the computed statistics. Example:
+      {"total_samples": int,
+       "label_occurrences": {<label>: count, ...},
+       "downloaded_stats": {"downloaded": int,
+                            "not_downloaded": int,
+                            "label_occurrences_downloaded": {<label>: count, ...},
+                            "label_occurrences_not_downloaded": {<label>: count, ...}}}
+    
+    Example:
+    >>> stats = compute_stats(data_file='path/to/audioset_samples.csv',
+                              labels_file='path/to/audioset_labels.csv',
+                              verbose=True,
+                              save_json=True)
+    """
+    cwd = Path.cwd()
+    dataset_file_path = cwd / data_file
+    labels_file_path = cwd / labels_file
+    if not dataset_file_path.exists():
+        raise FileNotFoundError(f"Dataset file {data_file} not found.")
+    if not labels_file_path.exists():
+        raise FileNotFoundError(f"Labels file {labels_file} not found.")
+
+    # Load label mapping
+    with open(labels_file_path, 'r') as lf:
+        csv_reader = csv.DictReader(lf)
+        label_map = {row['mid']: row['display_name'] for row in csv_reader}
+    if verbose:
+        print(f"Loaded label mapping: {label_map}")
+
+    # Initialize statistics dictionaries
+    total_samples = 0
+    label_occurrences = defaultdict(int)
+    downloaded_count = 0
+    not_downloaded_count = 0
+    label_occ_downloaded = defaultdict(int)
+    label_occ_not_downloaded = defaultdict(int)
+    
+    # Process dataset file
+    with open(dataset_file_path, 'r') as dataset_file:
+        reader = csv.reader(dataset_file)
+        header = next(reader)
+        
+        # Determine if 'downloaded' attribute is present and its index (if any)
+        try:
+            downloaded_idx = header.index('downloaded')
+            has_downloaded = True
+            if verbose:
+                print(f"'downloaded' attribute found at index {downloaded_idx}.")
+        except ValueError:
+            has_downloaded = False
+            if verbose:
+                print("No 'downloaded' attribute found in the provided CSV's header.")
+        
+        label_data_idx = 3  # default index for label data
+
+        for row in reader:
+            total_samples += 1
+            try:
+                labels_list = ast.literal_eval(row[label_data_idx])
+                current_labels = []
+                for item in labels_list:
+                    current_labels.extend([lab.strip() for lab in item.split(',') if lab.strip()])
+            except Exception as e:
+                if verbose:
+                    print(f"Error parsing labels in row {total_samples + 1}: {e}")
+                current_labels = []
+
+            decoded_labels = [label_map.get(label, label) for label in current_labels]
+
+            # Update overall label occurrences (using decoded label names)
+            for label in decoded_labels:
+                label_occurrences[label] += 1
+
+            # If downloaded attribute exists, update downloaded-related stats.
+            if has_downloaded:
+                downloaded_value = row[downloaded_idx].strip().lower()
+                if downloaded_value in ['true', '1']:
+                    downloaded_count += 1
+                    for label in decoded_labels:
+                        label_occ_downloaded[label] += 1
+                else:
+                    not_downloaded_count += 1
+                    for label in decoded_labels:
+                        label_occ_not_downloaded[label] += 1
+
+    # Prepare the result dictionary
+    stats = {"total_samples": total_samples,
+             "label_occurrences": dict(label_occurrences)}
+    if has_downloaded:
+        stats["downloaded_stats"] = {"downloaded": downloaded_count,
+                                     "not_downloaded": not_downloaded_count,
+                                     "label_occurrences_downloaded": dict(label_occ_downloaded),
+                                     "label_occurrences_not_downloaded": dict(label_occ_not_downloaded)}
+    if verbose:
+        print("Statistics:")
+        print(stats)
+    
+    # Save to JSON
+    if save_json:
+        json_filename = f"{dataset_file_path.stem}_stats.json"
+        json_path = dataset_file_path.parent / json_filename
+        with open(json_path, 'w') as jf:
+            json.dump(stats, jf, indent=4)
+        if verbose:
+            print(f"Statistics saved to {json_path}")
+
+    return stats
 
 
 def merge_sets(dataset_files: List[str], output_file: str, verbose: bool = False):

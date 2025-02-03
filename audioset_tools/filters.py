@@ -7,6 +7,7 @@ from collections import defaultdict, Counter
 import random
 
 
+# Original AudioSet CSV functions
 def select_by_label(labels_file: str,
                     data_file: str,
                     target_labels: List[str],
@@ -141,7 +142,7 @@ def blacklist_by_label(labels_file: str,
                 continue
 
             # Re-format and clean positive labels
-            clear_positive_labels = [label.strip().replace('"', '')
+            clear_positive_labels = [label.strip().replace('"','')
                                      for item in row[3:]
                                      for label in item.split(',')]
 
@@ -205,6 +206,7 @@ def select_by_samp_idx(data_file: str,
         print(f"Filtered dataset CSV saved to {output_file_path}")
 
 
+# Processed AudioSet CSV functions
 def reselect_by_label(labels_file: str, 
                       data_file: str,
                       target_labels: List[str],
@@ -340,7 +342,7 @@ def reblacklist_by_label(labels_file: str,
                 continue
 
             # Re-format and clean positive labels
-            clear_positive_labels = [label.strip().replace('"', '')
+            clear_positive_labels = [label.strip().replace('"','')
                                      for item in ast.literal_eval(row[3])
                                      for label in item.split(',')]
 

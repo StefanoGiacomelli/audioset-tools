@@ -6,7 +6,7 @@ sys.path.append(audioset_tools_path)
 import csv
 import random
 from audioset_tools.filters import select_by_label, reblacklist_by_label, rebalancing_filter
-from audioset_tools.utils import merge_sets
+from audioset_tools.utils import merge_sets, compute_stats
 
 
 SEED = 42
@@ -133,7 +133,7 @@ os.remove(f'./{negatives[1]}_blacklisted.csv')
 
 
 ####################################################################################
-# Count samples per group
+# Count samples per group (Note: check column headers formattting in CSV files: no spaces after commas!)
 positives_csv = f'./{positives[1]}.csv'
 negatives_csv = f'./{negatives[1]}.csv'
 with open(positives_csv, 'r') as f:
@@ -147,4 +147,13 @@ with open(negatives_csv, 'r') as f:
 
 print(f'Positive samples: ', positives_count)
 print(f'Negative samples: ', negatives_count)
-# Note: check column headers formattting in CSV files: no spaces after commas!
+
+# Stats retrieval
+positives_stats = compute_stats(data_file=positives_csv, 
+                                labels_file=audioset_csv_path + 'class_labels_indices.csv', 
+                                save_json=True, 
+                                verbose=False)
+negatives_stats = compute_stats(data_file=negatives_csv, 
+                                labels_file=audioset_csv_path + 'class_labels_indices.csv', 
+                                save_json=True, 
+                                verbose=False)
