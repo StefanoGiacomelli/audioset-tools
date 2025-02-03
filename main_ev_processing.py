@@ -25,7 +25,7 @@ positives = (['Emergency vehicle',                  # CONTAINER
               'Ambulance (siren)',
               'Fire engine, fire truck (siren)'], 'EV_Positives')
 
-# Old Positives (statistically relevant) labels included --> up to 10^-3 (in out_probs)
+# Old Positives (statistically relevant) labels included --> up to 10^-3 (in analysis out_probs)
 negatives = (['Car',                                # Vehicles Sounds (CONTAINER) ---- 
               'Car passing by', 
               'Power windows, electric windows',
@@ -78,6 +78,12 @@ for segment_path in audioset_csv_filespath:
                     out_filename=f'./{segment_name}_{positives[1]}.csv',
                     verbose=verbose)
     processed_file_paths.append(f'./{segment_name}_{positives[1]}.csv')
+    # Count samples per segment (and print)
+    with open(f'./{segment_name}_{positives[1]}.csv', 'r') as f:
+        reader = csv.reader(f)
+        next(reader)
+        positives_count = sum(1 for row in reader)
+    print(f'{segment_name} Positive samples: ', positives_count)
 
 # 2) Merge all positive CSV files & delete pre-processed files
 merge_sets(dataset_files=processed_file_paths,
@@ -107,6 +113,12 @@ for segment_path in audioset_csv_filespath:
                     out_filename=f'./{segment_name}_{negatives[1]}.csv',
                     verbose=verbose)
     processed_file_paths.append(f'./{segment_name}_{negatives[1]}.csv')
+    # Count samples per segment (and print)
+    with open(f'./{segment_name}_{negatives[1]}.csv', 'r') as f:
+        reader = csv.reader(f)
+        next(reader)
+        negatives_count = sum(1 for row in reader)
+    print(f'{segment_name} Negative samples: ', negatives_count)
 
 # 2) Merge all negative CSV files & delete pre-processed files
 merge_sets(dataset_files=processed_file_paths,
@@ -122,13 +134,19 @@ reblacklist_by_label(labels_file=audioset_csv_path + 'class_labels_indices.csv',
                      out_filename=f'./{negatives[1]}_blacklisted.csv',
                      verbose=verbose)
 os.remove(f'./{negatives[1]}_non-blacklisted.csv')
+# Count samples post-blacklisting
+with open(f'./{negatives[1]}_blacklisted.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader)
+    negatives_count = sum(1 for row in reader)
+print(f'Negative samples post-blacklisting: ', negatives_count)
 
 # 4) Blacklisted Negative samples class rebalancing
 rebalancing_filter(input_csv=f'./{negatives[1]}_blacklisted.csv',
                    labels_file=audioset_csv_path + 'class_labels_indices.csv',
                    output_csv=f'./{negatives[1]}.csv',
                    focus_labels=negatives[0],
-                   verbose=True)
+                   verbose=verbose)
 os.remove(f'./{negatives[1]}_blacklisted.csv')
 
 
@@ -152,8 +170,8 @@ print(f'Negative samples: ', negatives_count)
 positives_stats = compute_stats(data_file=positives_csv, 
                                 labels_file=audioset_csv_path + 'class_labels_indices.csv', 
                                 save_json=True, 
-                                verbose=False)
+                                verbose=verbose)
 negatives_stats = compute_stats(data_file=negatives_csv, 
                                 labels_file=audioset_csv_path + 'class_labels_indices.csv', 
                                 save_json=True, 
-                                verbose=False)
+                                verbose=verbose)
