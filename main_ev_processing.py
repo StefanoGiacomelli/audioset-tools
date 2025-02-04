@@ -1,6 +1,5 @@
 import sys
 import os
-from tqdm import tqdm
 audioset_tools_path = os.path.join(os.getcwd(), "audioset_tools")
 sys.path.append(audioset_tools_path)
 import csv
@@ -153,7 +152,10 @@ os.remove(f'./{negatives[1]}_blacklisted.csv')
 ####################################################################################
 # Count samples per group (Note: check column headers formattting in CSV files: no spaces after commas!)
 positives_csv = f'./{positives[1]}.csv'
+#positives_csv = f'./AudioSet_EV/EV_Positives_downloaded.csv'
 negatives_csv = f'./{negatives[1]}.csv'
+#negatives_csv = f'./AudioSet_EV/EV_Negatives_downloaded.csv'
+
 with open(positives_csv, 'r') as f:
     reader = csv.reader(f)
     next(reader)
