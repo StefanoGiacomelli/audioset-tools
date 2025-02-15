@@ -13,3 +13,7 @@ pycryptodomex
 SecretStorage
 resampy
 numpy
+pandas
+torch
+torchaudio
+pytorch-lightning

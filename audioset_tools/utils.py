@@ -25,7 +25,6 @@ def find_samps_by_samps(targets_file: str, data_file: str, verbose: bool = False
                                                   data_file='path/to/samples_you_are_searching_IN.csv', 
                                                   verbose=True)
     """
-    # Paths Handling
     cwd = Path.cwd()
     targets_file_path = cwd / targets_file
     data_file_path = cwd / data_file
@@ -79,6 +78,7 @@ def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_
                               verbose=True,
                               save_json=True)
     """
+    # Path handling
     cwd = Path.cwd()
     dataset_file_path = cwd / data_file
     labels_file_path = cwd / labels_file
@@ -106,8 +106,6 @@ def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_
     with open(dataset_file_path, 'r') as dataset_file:
         reader = csv.reader(dataset_file)
         header = next(reader)
-        
-        # Determine if 'downloaded' attribute is present and its index (if any)
         try:
             downloaded_idx = header.index('downloaded')
             has_downloaded = True
@@ -120,6 +118,7 @@ def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_
         
         label_data_idx = 3  # default index for label data
 
+        # Main routine
         for row in reader:
             total_samples += 1
             try:
@@ -134,11 +133,9 @@ def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_
 
             decoded_labels = [label_map.get(label, label) for label in current_labels]
 
-            # Update overall label occurrences (using decoded label names)
             for label in decoded_labels:
                 label_occurrences[label] += 1
 
-            # If downloaded attribute exists, update downloaded-related stats.
             if has_downloaded:
                 downloaded_value = row[downloaded_idx].strip().lower()
                 if downloaded_value in ['true', '1']:
@@ -150,7 +147,7 @@ def compute_stats(data_file: str, labels_file: str, verbose: bool = False, save_
                     for label in decoded_labels:
                         label_occ_not_downloaded[label] += 1
 
-    # Prepare the result dictionary
+    # Prepare results dictionary
     stats = {"total_samples": total_samples,
              "label_occurrences": dict(label_occurrences)}
     if has_downloaded:
@@ -189,17 +186,17 @@ def merge_sets(dataset_files: List[str], output_file: str, verbose: bool = False
     unique_rows = set()  # Set to store unique rows
 
     with open(output_file, 'w', newline='') as fout:
-        writer = None  # Init writer once headers are read
+        writer = None
 
         # Main routine
         for filename in dataset_files:
             with open(filename, 'r') as f:
                 reader = csv.reader(f)
-                headers = next(reader)  # Read headers
+                headers = next(reader)
 
                 if writer is None:
                     writer = csv.writer(fout)
-                    writer.writerow(headers)  # Write headers once
+                    writer.writerow(headers)
 
                 # Add each row to the set to ensure uniqueness
                 for row in reader:
