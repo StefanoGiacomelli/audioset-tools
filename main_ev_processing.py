@@ -149,7 +149,10 @@ os.remove(f'./{negatives[1]}_blacklisted.csv')
 
 # 3) Count samples (per group)
 positives_csv = f'./{positives[1]}.csv'
+#positives_csv = f'./AudioSet_EV/EV_Positives_downloaded.csv'
 negatives_csv = f'./{negatives[1]}.csv'
+#negatives_csv = f'./AudioSet_EV/EV_Negatives_downloaded.csv'
+
 with open(positives_csv, 'r') as f:
     reader = csv.reader(f)
     next(reader)
