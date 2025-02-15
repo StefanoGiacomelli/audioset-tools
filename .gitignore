@@ -1,9 +1,9 @@
 # User-defined paths
-./EV-benchmark/AudioSet-EV/Negatives_files/
-./EV-benchmark/AudioSet-EV/Positives_files/
-./EV-benchmark/AudioSet-EV/EV_Negatives.csv
-./EV-benchmark/AudioSet-EV/EV_Positives.csv
-./EV-benchmark/ESC-50/cross_val_folds/
+EV-benchmark/AudioSet-EV/Negatives_files
+EV-benchmark/AudioSet-EV/Positives_files
+EV-benchmark/AudioSet-EV/EV_Negatives.csv
+EV-benchmark/AudioSet-EV/EV_Positives.csv
+EV-benchmark/ESC-50/cross_val_folds
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
