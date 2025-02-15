@@ -10,8 +10,8 @@ import pandas as pd
 
 # Paths
 dataset_dir = './EV-benchmark/ESC-50'
-csv_path = os.path.join(dataset_dir, 'esc50.csv')
-audio_dir = os.path.join(dataset_dir, 'original_audio/')
+csv_path = os.path.join(dataset_dir, '/meta/esc50.csv')
+audio_dir = os.path.join(dataset_dir, 'audio/')
 output_dir = os.path.join(dataset_dir, 'cross_val_folds/')
 
 # Create output folders if not already present
