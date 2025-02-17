@@ -78,6 +78,17 @@ https://github.com/StefanoGiacomelli
 If you find this repository or AudioSet-EV useful, please cite this:
 
 ```
-ref_ToDo
+@dataset{audioset-ev,
+    author       = {Giacomelli, Stefano and Rinaldi, Claudia},
+    title        = {AudioSet-EV: an AudioSet-derived distribution of Emergency Vehicle Siren sounds},
+    month        = {feb},
+    year         = {2025},
+    publisher    = {Zenodo},
+    version      = {0.1.0},
+    doi          = {10.5281/zenodo.14882314},
+    url          = {https://doi.org/10.5281/zenodo.14882314},
+}
+
+Paper_ToDo
 ```
 
