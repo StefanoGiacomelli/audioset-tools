@@ -6,7 +6,6 @@ This repository provides code and examples for "S. Giacomelli et al. - AudioSet-
 [![python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![jupyter](https://img.shields.io/badge/Jupyter-Lab-F37626.svg?style=flat&logo=Jupyter)](https://jupyterlab.readthedocs.io/en/stable)
 [![pytorch](https://img.shields.io/badge/PyTorch-2.6.0-EE4C2C.svg?style=flat&logo=pytorch)](https://pytorch.org)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 
 AudioSet-Tools is a modular Python framework for filtering, downloading, and post-processing extensive audio collections derived from Google’s AudioSet. This framework streamlines label-based selection, dataset balancing, and automated download and DSP pipelines, enabling end-to-end and reproducible research workflows based on [AudioSet](https://research.google.com/audioset/).
 
@@ -58,9 +57,10 @@ pip install -r requirements.txt
     * CHANGE: compile functions and class documentations on ReadTheDocs
     * CHANGE: compile audioset-tools as a Python package and host on PyPI
 
-## Meta
+## Author
 
 Stefano Giacomelli – DISIM dpt. (University of L'Aquila, ITA) – stefano.giacomelli@graduate.univaq.it
+
 Distributed under the GPL license. See ``LICENSE`` for more information.
 
 https://github.com/StefanoGiacomelli
