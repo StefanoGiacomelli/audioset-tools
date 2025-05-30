@@ -14,6 +14,7 @@ SecretStorage
 resampy
 numpy
 pandas
+matplotlib
 torch
 torchaudio
 pytorch-lightning
