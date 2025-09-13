@@ -1,5 +1,6 @@
 import sys
 import os
+import time
 audioset_tools_path = os.path.join(os.getcwd(), "audioset_tools")
 sys.path.append(audioset_tools_path)
 import csv
@@ -64,6 +65,7 @@ negatives = (['Car',                                # Vehicles Sounds (CONTAINER
               'Singing',
               'Engine'], 'EV_Negatives')
 
+previous_time = time.perf_counter()
 
 # POSITIVE samples pipeline ########################################################
 # 1) Select positive samples from all AudioSet segments
@@ -83,12 +85,19 @@ for segment_path in audioset_csv_filespath:
         positives_count = sum(1 for row in reader)
     print(f'{segment_name} Positive samples: ', positives_count)
 
+inter_time = time.perf_counter()
+print(f'Positive samples processing time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
+
 # 2) Merge all positive CSV files & delete pre-processed files
 merge_sets(dataset_files=processed_file_paths,
            output_file=f'./{positives[1]}_non-blacklisted.csv',
            verbose=verbose)
 for file in processed_file_paths:
     os.remove(file)
+
+inter_time = time.perf_counter()
+print(f'Positive samples merging time: {inter_time - previous_time:.2f} seconds')
 
 # 3) Blacklist "Civil defense siren" & delete non-blacklisted CSV file
 reblacklist_by_label(labels_file=audioset_csv_path + 'class_labels_indices.csv',
@@ -97,6 +106,10 @@ reblacklist_by_label(labels_file=audioset_csv_path + 'class_labels_indices.csv',
                      out_filename=f'./{positives[1]}.csv',
                      verbose=verbose)
 os.remove(f'./{positives[1]}_non-blacklisted.csv')
+
+inter_time = time.perf_counter()
+print(f'Positive samples blacklisting time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
 
 
 ####################################################################################
@@ -118,12 +131,20 @@ for segment_path in audioset_csv_filespath:
         negatives_count = sum(1 for row in reader)
     print(f'{segment_name} Negative samples: ', negatives_count)
 
+inter_time = time.perf_counter()
+print(f'Negative samples processing time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
+
 # 2) Merge all negative CSV files & delete pre-processed files
 merge_sets(dataset_files=processed_file_paths,
            output_file=f'./{negatives[1]}_non-blacklisted.csv',
            verbose=verbose)
 for file in processed_file_paths:
     os.remove(file)
+
+inter_time = time.perf_counter()
+print(f'Negative samples merging time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
 
 # 3) Blacklist all positive labels & delete non-blacklisted CSV file
 reblacklist_by_label(labels_file=audioset_csv_path + 'class_labels_indices.csv',
@@ -132,6 +153,11 @@ reblacklist_by_label(labels_file=audioset_csv_path + 'class_labels_indices.csv',
                      out_filename=f'./{negatives[1]}_blacklisted.csv',
                      verbose=verbose)
 os.remove(f'./{negatives[1]}_non-blacklisted.csv')
+
+inter_time = time.perf_counter()
+print(f'Negative samples blacklisting time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
+
 # Count samples post-blacklisting
 with open(f'./{negatives[1]}_blacklisted.csv', 'r') as f:
     reader = csv.reader(f)
@@ -146,6 +172,10 @@ rebalancing_filter(input_csv=f'./{negatives[1]}_blacklisted.csv',
                    focus_labels=negatives[0],
                    verbose=verbose)
 os.remove(f'./{negatives[1]}_blacklisted.csv')
+
+inter_time = time.perf_counter()
+print(f'Negative samples rebalancing time: {inter_time - previous_time:.2f} seconds')
+previous_time = inter_time
 
 # 3) Count samples (per group)
 positives_csv = f'./{positives[1]}.csv'
