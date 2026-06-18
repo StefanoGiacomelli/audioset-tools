@@ -217,7 +217,7 @@ class StandardDownloader:
 
         # Resampling
         if self.target_sr != sr:
-            data = resampy.resample(data, sr, self.target_sr)
+            data = resampy.resample(data, sr, self.target_sr, axis=0)
             self._log(f"{file_path} resampled to {self.target_sr}Hz.")
 
         # Trimming
