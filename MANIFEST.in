@@ -1,0 +1,5 @@
+include README.md LICENSE NOTICE THIRD_PARTY_NOTICES.md CITATION.cff CHANGELOG.md
+recursive-include docs *.md *.ipynb
+recursive-include examples *.ipynb
+recursive-include assets *.png *.jpg
+recursive-include tests *.py *.csv *.tsv *.json *.md

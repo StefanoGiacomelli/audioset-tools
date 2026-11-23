@@ -1,0 +1,23 @@
+AudioSet-Tools v2
+Author: Stefano Giacomelli, University of L'Aquila, Department of Information Engineering, Computer Science and
+Mathematics (DISIM) - ORCID 0009-0009-0438-1748 - stefano.giacomelli@graduate.univaq.it
+
+LICENCE
+The code and the documentation written for this repository are released under the GNU General Public License, version 3 or (at your option) any later version (SPDX identifier GPL-3.0-or-later); the full text is in the file LICENSE. The licence covers the code and the
+documentation written for this repository only, never the third-party material listed below, which keeps its own terms.
+The AudioSet-EV data are not part of this repository: they follow the licence of their Zenodo records (CC BY-SA 4.0).
+
+THIRD-PARTY MATERIAL (details: THIRD_PARTY_NOTICES.md)
+- tests/data/audioset, tests/data/audioset_strong, tests/data/vggsound: short excerpts (20-50 rows) of the official
+  AudioSet, AudioSet Strong and VGGSound metadata files, used as test fixtures; the label-name files contain only
+  the rows used by the excerpts. Attribution: Gemmeke et al. (ICASSP 2017), Hershey et al. (ICASSP 2021),
+  Chen et al. (ICASSP 2020). No audio and no video is included.
+- SALT (tpt-adasp/salt): the mapping and hierarchy files are NOT included (the upstream repository declares no
+  licence). They are downloaded on request by "audioset-tools fetch-salt"; the files in tests/data/salt are synthetic.
+- Runtime dependencies (numpy, tqdm, and the optional yt-dlp, soundfile, resampy, matplotlib) are installed from PyPI
+  and keep their own licences.
+
+CONTRIBUTIONS
+The axis=0 correction of the resampling call (pull request #1 of AudioSet-Tools v1) was contributed by @Davvv24.
+
+HOW TO CITE: see README.md and CITATION.cff.

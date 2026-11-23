@@ -1,0 +1,103 @@
+# CITATION file of AudioSet-Tools v2. Format: Citation File Format 1.2.0.
+# `date-released` is left out on purpose: it is set (together with the software DOI, once minted) when v2.0.0 is released.
+cff-version: 1.2.0
+title: "AudioSet-Tools"
+message: "If you use this software, please cite the article (preferred citation); for the v2 architecture also cite the EUSIPCO 2026 poster, and for the data the AudioSet-EV records listed under references."
+type: software
+version: "2.0.0"
+license: GPL-3.0-or-later
+authors:
+  - family-names: Giacomelli
+    given-names: Stefano
+    orcid: "https://orcid.org/0009-0009-0438-1748"
+    email: "stefano.giacomelli@graduate.univaq.it"
+    affiliation: "University of L'Aquila, Department of Information Engineering, Computer Science and Mathematics (DISIM)"
+repository-code: "https://github.com/StefanoGiacomelli/audioset-tools"
+url: "https://github.com/StefanoGiacomelli/audioset-tools"
+abstract: >-
+  A Python package for taxonomy-aware curation of AudioSet, AudioSet Strong and VGGSound metadata: the sources are parsed
+  into one normalized record model (AudioRecord, TemporalEvent, AudioDataset) with label-aware filtering in the id,
+  original, SALT and auto query spaces, deterministic rebalancing, merging, statistics, lossless JSON/CSV export, event
+  tracks and piano rolls, and an optional YouTube clip downloader with structured reports. The article cited below
+  describes version 1 of the framework; version 2 is the standalone package presented in the EUSIPCO 2026 poster listed
+  under references. Research activities were mainly funded under the Ministerial Decree (DM) 118/2023, Mission 4,
+  Component 1, Investment 4.1 of the National Recovery and Resilience Plan (PNRR) - "PNRR Research" - CUP:
+  E11I23000100001. Research activities and publications were also partially supported by the European Union under the
+  Italian National Recovery and Resilience Plan (PNRR) of NextGenerationEU, within the partnership on
+  "Telecommunications of the Future" (PE00000001 - RESTART), and by the European Union - NextGenerationEU under the
+  Italian Ministry of University and Research (MUR), National Innovation Ecosystem grant ECS00000041 - VITALITY, CUP:
+  E13C22001060006 (the funding statement of the article).
+keywords:
+  - AudioSet
+  - AudioSet Strong
+  - VGGSound
+  - SALT
+  - audio dataset curation
+  - taxonomy
+  - reproducible research
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Giacomelli
+      given-names: Stefano
+      orcid: "https://orcid.org/0009-0009-0438-1748"
+    - family-names: Giordano
+      given-names: Marco
+    - family-names: Rinaldi
+      given-names: Claudia
+    - family-names: Graziosi
+      given-names: Fabio
+  title: "AudioSet-Tools: A Python Framework for Taxonomy-Aware AudioSet Curation and Reproducible Audio Research"
+  journal: "EURASIP Journal on Audio, Speech, and Music Processing"
+  volume: 2026
+  issue: 1
+  year: 2026
+  doi: "10.1186/s13636-025-00436-z"
+  notes: "Article number 2. Describes version 1 of the framework (tag v1.0.0 of this repository)."
+  publisher:
+    name: "Springer Nature"
+references:
+  - type: generic
+    authors:
+      - family-names: Giacomelli
+        given-names: Stefano
+        orcid: "https://orcid.org/0009-0009-0438-1748"
+      - family-names: Giordano
+        given-names: Marco
+      - family-names: Rinaldi
+        given-names: Claudia
+      - family-names: Graziosi
+        given-names: Fabio
+    title: "AudioSet-Tools: A Python Framework for Taxonomy-Aware AudioSet Curation and Reproducible Audio Research"
+    year: 2026
+    notes: "Poster presentation, European Signal Processing Conference (EUSIPCO 2026), Session ASMSP-P8.1, Bruges, Belgium, 3 September 2026. Presents the version 2 architecture."
+    url: "https://cmsworkshops.com/eusipco2026/view_paper.php?SessionID=1012&PaperNum=2208"
+  - type: data
+    authors:
+      - family-names: Giacomelli
+        given-names: Stefano
+        orcid: "https://orcid.org/0009-0009-0438-1748"
+      - family-names: Rinaldi
+        given-names: Claudia
+    title: "AudioSet-EV: An AudioSet-Derived Distribution of Emergency Vehicle Siren Sounds"
+    version: "0.1.0"
+    year: 2025
+    doi: "10.5281/zenodo.14882314"
+    license: CC-BY-SA-4.0
+    publisher:
+      name: "Zenodo"
+  - type: data
+    authors:
+      - family-names: Giacomelli
+        given-names: Stefano
+        orcid: "https://orcid.org/0009-0009-0438-1748"
+      - family-names: Rinaldi
+        given-names: Claudia
+    title: "AudioSet-EV v2: A Refined AudioSet-Derived Distribution of Emergency Vehicle Siren Sounds"
+    version: "0.2.0"
+    year: 2026
+    month: 2
+    doi: "10.5281/zenodo.18668076"
+    license: CC-BY-SA-4.0
+    publisher:
+      name: "Zenodo"

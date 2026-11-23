@@ -1,0 +1,34 @@
+{
+  "animal": {
+    "bird": {},
+    "dog": {},
+    "wild_animal": {
+      "coyote": {}
+    }
+  },
+  "vehicle": {
+    "road_vehicle": {
+      "car": {},
+      "engine": {
+        "idling": {}
+      }
+    },
+    "rail_vehicle": {
+      "train": {}
+    },
+    "aircraft": {},
+    "siren_ringing": {
+      "ambulance_siren": {}
+    }
+  },
+  "human_voice": {
+    "speech": {},
+    "laughter": {},
+    "singing": {}
+  },
+  "music": {
+    "music": {
+      "singing": {}
+    }
+  }
+}

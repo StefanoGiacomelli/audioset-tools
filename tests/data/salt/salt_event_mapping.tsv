@@ -1,0 +1,41 @@
+standard_event	dataset_label	dataset
+animal	Animal	AudioSet
+animal	Domestic animals, pets	AudioSet
+dog	Dog	AudioSet
+bird	Bird	AudioSet
+animal	Horse	AudioSet
+car	Car	AudioSet
+engine	Engine	AudioSet
+idling	Idling	AudioSet
+engine	Engine knocking	AudioSet
+speech	Speech	AudioSet
+speech	Female speech, woman speaking	AudioSet
+singing	Female singing	AudioSet
+music	Music	AudioSet
+engine	Engine	AudioSetStrong
+idling	Idling	AudioSetStrong
+train	Train	AudioSetStrong
+train	Train wheels squealing	AudioSetStrong
+music	Music	AudioSetStrong
+animal	Animal	AudioSetStrong
+animal	Rodents, rats, mice	AudioSetStrong
+speech	Female speech, woman speaking	AudioSetStrong
+speech	Male speech, man speaking	AudioSetStrong
+speech	Conversation	AudioSetStrong
+laughter	Laughter	AudioSetStrong
+human_voice	Human voice	AudioSetStrong
+human_voice	Whistling	AudioSetStrong
+ambulance_siren	ambulance siren	VggSound
+engine	car engine starting	VggSound
+aircraft	airplane	VggSound
+coyote	coyote howling	VggSound
+speech	female speech, woman speaking	VggSound
+laughter	people belly laughing	VggSound
+singing	female singing	VggSound
+vehicle	Engine	Freesound50k
+music	Piano	Freesound50k
+engine	  ENGINE  	AudioSet
+	Horse	AudioSet
+		
+orphan_event
+

@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audioset-tools"
+version = "2.0.0"
+description = "Taxonomy-aware curation of AudioSet, AudioSet Strong and VGGSound metadata: normalized records, SALT label spaces, event tracks and a YouTube clip downloader."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Stefano Giacomelli", email = "stefano.giacomelli@graduate.univaq.it" }]
+keywords = ["AudioSet", "AudioSet Strong", "VGGSound", "SALT", "audio dataset curation", "taxonomy", "metadata", "yt-dlp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+# Code and documentation: GNU GPL v3 (SPDX expression, PEP 639; a license classifier must not be combined with an expression).
+# NOTICE is documentation, not a licence file.
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+dependencies = [
+    "numpy",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+# Clip retrieval (yt-dlp + resampy + soundfile; the ffmpeg binary must also be on PATH).
+download = ["yt-dlp", "soundfile", "resampy"]
+# Piano-roll plots (matplotlib >= 3.6 for the colormap registry API).
+plot = ["matplotlib>=3.6"]
+# generate_event_tracks(..., out_type="pt").
+torch = ["torch"]
+# SaltResolver.from_py_salt(): the author's py-salt fork, pinned to the commit tested here. The upstream
+# tpt-adasp/salt package metadata is not installable (broken setup.py); the fork requires Python < 3.12 and numpy < 2.
+# This is a direct reference: install from a clone or from GitHub; it cannot be uploaded to PyPI as is.
+salt = ["py-salt @ git+https://github.com/StefanoGiacomelli/salt_exp.git@2edbadb9fae33e46751a40de1f76b190ecb2b5e4#subdirectory=py-salt"]
+dev = ["pytest>=7", "ruff", "build", "nbstripout"]
+
+[project.urls]
+Homepage = "https://github.com/StefanoGiacomelli/audioset-tools"
+Repository = "https://github.com/StefanoGiacomelli/audioset-tools"
+Documentation = "https://github.com/StefanoGiacomelli/audioset-tools/tree/main/docs"
+Issues = "https://github.com/StefanoGiacomelli/audioset-tools/issues"
+Changelog = "https://github.com/StefanoGiacomelli/audioset-tools/blob/main/CHANGELOG.md"
+
+[project.scripts]
+audioset-tools = "audioset_tools.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+audioset_tools = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "smoke: full-scale metadata smoke test; needs the AUDIOSET_TOOLS_DATA environment variable",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests"]
+extend-exclude = ["examples", "docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
